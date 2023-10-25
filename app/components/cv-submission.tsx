@@ -13,6 +13,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
   const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
   const { userId, token } = useAuthContext();
 
+  const [response, setResponse] = useState<string | null>(null)
   const [currentJob, setCurrentJob] = useState<string>("");
   const [targetJob, setTargetJob] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null | undefined>(
@@ -92,6 +93,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           theme: "light",
         });
       }
+      setResponse(response.data.chat.response)
     } catch (error) {
       console.log("Error:", error);
       toast.error("An error occurred. Please try again.", {
@@ -104,6 +106,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
         progress: undefined,
         theme: "light",
       });
+      setResponse(null)
     }
   };
 
@@ -115,6 +118,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
 
   return (
     <div>
+      <ToastContainer/>
       {!submitted ? (
         <div>
           <button
@@ -169,7 +173,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           >
             Go Back
           </button>
-          <p>You have submitted the form</p>
+          <p>{response}</p>
         </div>
       )}
     </div>
