@@ -14,7 +14,7 @@ const Introduction = ({ introFxn }: IntroProps) => {
         onClick={introFxn}
         className="w-full text-white bg-blue-600 p-4 rounded-sm hover:bg-blue-500 my-4"
       >
-        Let's Get Started
+        Let&apos;s Get Started
       </button>
     </div>
   );
