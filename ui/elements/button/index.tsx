@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { cva } from "class-variance-authority";
+import { gilroy } from "@/styles/font";
 
 enum BtnVariants {
     default = 'default',
@@ -25,7 +26,7 @@ const button = cva('', {
 
 const Button = ({label, customClassname, variant}: BtnProps) => {
     const className = clsx(
-        "w-full h-auto text-white p-4 rounded",
+        `w-full h-auto text-white p-4 rounded font-medium text-base ${gilroy.className}`,
         customClassname
     )
 

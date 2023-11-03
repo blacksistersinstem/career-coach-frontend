@@ -2,6 +2,7 @@
 
 
 import React, {ChangeEvent} from "react";
+import { gilroy } from "@/styles/font";
 
 interface InputProps{
     value: string;
@@ -19,10 +20,10 @@ const Input = ({value, label, type, onChange, placeholder, id}:InputProps) => {
     }
 
     return(
-        <div>
+        <div className= {`${gilroy.className} flex flex-col mb-4`}>
             {label && (
                 <label
-                    className=""
+                    className="text-white font-medium text-base"
                     htmlFor={id}
                 >
                     {label}
@@ -33,6 +34,7 @@ const Input = ({value, label, type, onChange, placeholder, id}:InputProps) => {
                 value={value}
                 placeholder={placeholder}
                 onChange={handleChange}
+                className="px-6 py-5 rounded"
             />
         </div>
     )

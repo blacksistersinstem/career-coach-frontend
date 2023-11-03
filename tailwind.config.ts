@@ -39,7 +39,7 @@ const config: Config = {
       },
       fontWeight: {
         thin: "100",
-        "extra-light": "200",
+        "ultra-light": "200",
         light: "300",
         regular: "400",
         medium: "500",
@@ -55,7 +55,7 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /(bg|text|border)-(primary|secondary-1|secondary-2|secondary-3|secondary-4|secondary-5|#684)/, //Adding this to safe list because the colours were getting purged
+      pattern: /(bg|text|border)-(primary|secondary-1|secondary-2|secondary-3|secondary-4|secondary-5|)/, //Adding this to safe list because the colours were getting purged
     }
   ]
 };

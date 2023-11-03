@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from 'flowbite-react';
 
 import Logo from "@/public/assets/logo.svg";
-import { Button, Input } from '@/ui';
+import { Button, Input, Typography } from '@/ui';
 
 
 interface LoginProps {
@@ -58,7 +58,13 @@ const Login = ({ isLoading, login}: LoginProps) => {
     <div className="w-2/5">
       {/* <Logo/> */}
       <ToastContainer />
-      <h1 className="text-white text-2xl mb-4 gilroy">Login Form</h1>
+      <Typography
+        variant='h1'
+        fontWeight='bold'
+        align='center'
+      >
+        Login Form
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Input
           label='Email Address'
