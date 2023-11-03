@@ -41,8 +41,8 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
     if (selectedFile) {
       formData.append("resume", selectedFile);
     }
-    formData.append("current", currentJob);
-    formData.append("target", targetJob);
+    formData.append("currentRole", currentJob);
+    formData.append("targetRole", targetJob);
 
     if (currentJob === "" || currentJob === null) {
       toast.error("Please, enter a proper current job role", {
@@ -131,7 +131,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           <form className="w-full" onSubmit={submitResume}>
             <input
               type="text"
-              name="current"
+              name="currentRole"
               id=""
               value={currentJob}
               onChange={handleInputChange}
@@ -140,7 +140,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
             />
             <input
               type="text"
-              name="target"
+              name="targetRole"
               id=""
               value={targetJob}
               onChange={handleInputChange}

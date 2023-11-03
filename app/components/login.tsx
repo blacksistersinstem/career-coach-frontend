@@ -3,6 +3,10 @@
 import React, { FormEvent, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from 'flowbite-react';
+
+import Logo from "@/public/assets/logo.svg";
+import { Button, Input } from '@/ui';
 
 
 interface LoginProps {
@@ -52,42 +56,31 @@ const Login = ({ isLoading, login}: LoginProps) => {
 
   return (
     <div className="w-2/5">
+      {/* <Logo/> */}
       <ToastContainer />
-      <h1 className="text-white text-2xl mb-4">Login Form</h1>
+      <h1 className="text-white text-2xl mb-4 gilroy">Login Form</h1>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col w-full mb-4">
-          <label htmlFor="email" className="text-white mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            name=""
-            id="email"
-            className="p-2 border border-blue-600 outline-1 outline-black"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col w-full mb-4">
-          <label htmlFor="password" className="text-white mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            name=""
-            id="password"
-            className="p-2 border border-blue-600 outline-1 outline-black"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
+        <Input
+          label='Email Address'
+          type='email'
+          value={email}
+          id="email"
+          onChange={(value) => setEmail(value)}
+        />
+        <Input
+          label='Password'
+          type='password'
+          value={password}
+          id="password"
+          onChange={(value) => setPassword(value)}
+        />
+        
+        <Button
+          variant='default'
+          label = {isLoading ? <Spinner size="md"/> : "Sign In" }
           disabled = {isLoading}
-          type="submit"
-          className="w-full text-white bg-blue-600 p-4 rounded-sm hover:bg-blue-500"
-        >
-          {isLoading ? "...loading" : "Submit"}
-        </button>
+          type='submit'
+        />
       </form>
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useAuthContext } from "../context/authContext";
+import { useAuthContext } from "../app/context/authContext";
 
-interface DataObj{
+interface DataObj {
   userId: string;
   token: string;
 }
@@ -12,13 +12,12 @@ interface LoginResponse {
   status: number;
   userId: string;
   token: string;
-  data: DataObj
+  data: DataObj;
 }
 
 export const useLogin = () => {
-
   const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
-  const {contextLogin} = useAuthContext();
+  const { contextLogin } = useAuthContext();
 
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,7 +40,7 @@ export const useLogin = () => {
           },
         }
       );
-      
+
       console.log("Response.....", response);
 
       if (response.status === 200) {
@@ -57,7 +56,7 @@ export const useLogin = () => {
           theme: "light",
         });
         // console.log(response.data.data.userId)
-        contextLogin(response.data.data.userId, response.data.data.token)
+        contextLogin(response.data.data.userId, response.data.data.token);
       }
     } catch (error: any) {
       console.log(error?.message);
@@ -72,8 +71,8 @@ export const useLogin = () => {
         progress: undefined,
         theme: "light",
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
