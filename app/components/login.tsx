@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from 'flowbite-react';
 
-import Logo from "@/public/assets/logo.svg";
 import { Button, Input, Typography } from '@/ui';
 
 
@@ -17,16 +16,23 @@ interface LoginProps {
 const Login = ({ isLoading, login}: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [preLoading, setPreLoading] =  useState(isLoading)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    validate()
-    login(email, password); // Call the login function from the hook
+    if(validate()){
+      setPreLoading(true)
+      login(email, password); // Call the login function from the hook
+    }
+    // setPreLoading(false)
+    
   };
+
 
   const validate = () => {
     let result = true;
     if (email === "" || email === null) {
+      setPreLoading(false)
       result = false;
       toast.error("Please, enter a proper email address", {
         position: "top-right",
@@ -39,6 +45,7 @@ const Login = ({ isLoading, login}: LoginProps) => {
         theme: "light",
       });
     } else if (password === "" || password === null) {
+      setPreLoading(false)
       result = false;
       toast.error("Please, enter a proper password", {
         position: "top-right",
@@ -51,21 +58,22 @@ const Login = ({ isLoading, login}: LoginProps) => {
         theme: "light",
       });
     }
+    
     return result;
   };
 
   return (
-    <div className="w-2/5">
-      {/* <Logo/> */}
+    <div className="w-3/6 flex flex-col justify-center items-center mbl:w-full">
       <ToastContainer />
       <Typography
         variant='h1'
         fontWeight='bold'
         align='center'
+        customClassName=''
       >
-        Login Form
+        Sign in to Career Coach
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mt-8 w-[80%] mbl:w-full'>
         <Input
           label='Email Address'
           type='email'
@@ -82,9 +90,10 @@ const Login = ({ isLoading, login}: LoginProps) => {
         />
         
         <Button
+          customClassname='w-full'
           variant='default'
-          label = {isLoading ? <Spinner size="md"/> : "Sign In" }
-          disabled = {isLoading}
+          label = {preLoading ? <Spinner size="md"/> : "Sign In" }
+          disabled = {preLoading}
           type='submit'
         />
       </form>

@@ -9,6 +9,26 @@ const config: Config = {
     "./node_modules/flowbite-react/**/*.js"
   ],
   theme: {
+    screens: {
+      'mbl': {'min': '320px', 'max': '480px'},
+      // => @media (min-width: 320px and max-width: 480px){ ... } For Mobile Devices
+
+      'tab': {'min': '481px', 'max': '768px'},
+      // => @media (max-width: 768px){ ... } For iPads and Tablets
+
+      'lap': {'min': '769px' , 'max': '1024px'},
+      // => @media (max-width: 1024px){ ... } For Laptops and Small Screens
+
+      'dsk': {'min': '1025px','max': '1200px'},
+      // => @media (max-width: 1200px){ ... } For Desktops and Large Screens
+
+      'tv': {'min': '1201px'},
+      // => @media (min-width: 1201px){ ... } For TV and Extra Large Screens
+
+      'md': {'max': '768px'},
+      // => @media (max-width: 768px) { ... }
+
+    },
     extend: {
       colors: {
         primary: "#242E49",
@@ -51,7 +71,8 @@ const config: Config = {
     },
   },
   plugins: [
-    require("flowbite/plugin")
+    require("flowbite/plugin"),
+    require("flowbite-react-icons/plugin")
   ],
   safelist: [
     {

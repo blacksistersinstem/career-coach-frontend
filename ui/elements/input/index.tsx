@@ -4,16 +4,16 @@
 import React, {ChangeEvent} from "react";
 import { gilroy } from "@/styles/font";
 
-interface InputProps{
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
     value: string;
-    label: string;
+    label?: string;
     type: string;
-    onChange: (value: string) => void;
+    onChange: (value: any ) => void;
     placeholder?: string;
     id?: string
 }
 
-const Input = ({value, label, type, onChange, placeholder, id}:InputProps) => { 
+const Input = ({value, label, type, onChange, placeholder, id, ...rest}:InputProps) => { 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target;
         onChange(value)
@@ -34,7 +34,8 @@ const Input = ({value, label, type, onChange, placeholder, id}:InputProps) => {
                 value={value}
                 placeholder={placeholder}
                 onChange={handleChange}
-                className="px-6 py-5 rounded"
+                className="px-6 py-5 rounded text-h6"
+                {...rest}
             />
         </div>
     )

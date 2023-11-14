@@ -1,17 +1,18 @@
 import React from "react";
+import { TypographyProps, variantMapping } from "./index.types";
 import { cva } from "class-variance-authority";
 import { gilroy, playfair } from "@/styles/font";
 
 const typography = cva("", {
   variants: {
     intent: {
-      h1: "text-h1",
-      h2: "text-h2",
-      h3: "text-h3",
-      h4: "text-h4",
-      h5: "text-h5",
-      h6: "text-h6",
-      base: "text-base",
+      h1: "text-h1 mbl:text-h3",
+      h2: "text-h2 mbl:text-h4",
+      h3: "text-h3 mbl:text-h5",
+      h4: "text-h4 mbl:text-h6",
+      h5: "text-h5 mbl:text-base",
+      h6: "text-h6: mbl:text-base",
+      base: "text-base mbl:text-caption",
       caption: "text-caption",
     },
     fontWeight: {
@@ -45,74 +46,23 @@ const typography = cva("", {
       "secondary-2": "text-secondary-2",
       "secondary-3": "text-secondary-3",
       "secondary-4": "text-secondary-4",
-      "secondary-5": "text-secondary-5"
+      "secondary-5": "text-secondary-5",
     },
   },
 });
 
-const variantMapping = {
-  h1: "h1",
-  h2: "h2",
-  h3: "h3",
-  h4: "h4",
-  h5: "h5",
-  h6: "h6",
-  base: "p",
-  caption: "p",
-};
-
-type TypographyVariant = keyof typeof variantMapping;
-
-type TypographyAlign =
-  | "start"
-  | "end"
-  | "left"
-  | "right"
-  | "center"
-  | "justify";
-
-type TypographyFontWeight =
-  | "thin"
-  | "ultra-light"
-  | "light"
-  | "regular"
-  | "medium"
-  | "semi-bold"
-  | "bold"
-  | "extra-bold"
-  | "black";
-
-type TypographyFont = "gilroy" | "playfair";
-
-type TypographyColors =
-  | "primary"
-  | "secondary-1"
-  | "secondary-2"
-  | "secondary-3"
-  | "secondary-4"
-  | "secondary-5"
-  | "white"
-  | "black";
-
-interface TypographyProps extends React.HTMLAttributes<HTMLOrSVGElement> {
-  tag?: keyof JSX.IntrinsicElements;
-  variant?: TypographyVariant;
-  align?: TypographyAlign;
-  fontWeight?: TypographyFontWeight;
-  children?: React.ReactNode;
-  font?: TypographyFont;
-  color?: TypographyColors;
-}
-
-const Typography = ({
-  tag,
-  variant = "base",
-  align,
-  fontWeight,
-  font = "gilroy",
-  color = "white",
-  children,
-}: TypographyProps) => {
+const Typography: React.FC<TypographyProps> = (props) => {
+  const {
+    variant = "base",
+    tag,
+    align,
+    fontWeight,
+    font = "gilroy",
+    color = "white",
+    children,
+    customClassName = "",
+    ...rest
+  } = props;
 
   //Resolved tag
   const Tag = (tag ||
@@ -127,7 +77,9 @@ const Typography = ({
         align,
         font,
         color,
+        className: `${customClassName}`,
       })}
+      {...rest}
     >
       {children}
     </Tag>
@@ -135,3 +87,4 @@ const Typography = ({
 };
 
 export { Typography };
+export * from './index.types';

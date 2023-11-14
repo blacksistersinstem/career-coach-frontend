@@ -5,6 +5,10 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuthContext } from "../context/authContext";
 
+import { ArrowUpFromBracketOI } from "flowbite-react-icons";
+import { Typography, Input, Button } from "@/ui";
+import { gilroy } from "@/styles/font";
+
 interface OutroProps {
   outroFxn: () => void;
 }
@@ -13,20 +17,23 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
   const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
   const { userId, token } = useAuthContext();
 
-  const [response, setResponse] = useState<string | null>(null)
-  const [currentJob, setCurrentJob] = useState<string>("");
-  const [targetJob, setTargetJob] = useState<string>("");
+  const [response, setResponse] = useState<string | null>(null);
+  const [currentJob, setCurrentJob] = useState<string>('');
+  const [targetJob, setTargetJob] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null | undefined>(
     null
   );
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === "current") {
-      setCurrentJob(value);
-    } else if (name === "target") {
-      setTargetJob(value);
+    if(e.target){
+      const { name, value } = e.target;
+
+      if (name === "currentRole") {
+        setCurrentJob(value);
+      } else if (name === "targetRole") {
+        setTargetJob(value);
+      }
     }
   };
 
@@ -80,7 +87,6 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           },
         }
       );
-      console.log("Response", response);
       if (response.status === 200) {
         toast.success("Form was successfully submitted", {
           position: "top-right",
@@ -93,7 +99,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           theme: "light",
         });
       }
-      setResponse(response.data.chat.response)
+      setResponse(response.data.chat.response);
     } catch (error) {
       console.log("Error:", error);
       toast.error("An error occurred. Please try again.", {
@@ -106,7 +112,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
         progress: undefined,
         theme: "light",
       });
-      setResponse(null)
+      setResponse(null);
     }
   };
 
@@ -118,61 +124,77 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
 
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       {!submitted ? (
         <div>
-          <button
-            className="bg-red-600 text-white font-bold p-2 rounded-sm mb-12"
-            onClick={outroFxn}
-          >
-            Go Back
-          </button>
-          <h1 className="text-2xl font-bold mb-4">Tell us about yourself</h1>
-          <form className="w-full" onSubmit={submitResume}>
-            <input
-              type="text"
-              name="currentRole"
-              id=""
+          <Button onClick={outroFxn} variant="error" label="Go Back" />
+
+          <form className="w-full mt-10" onSubmit={submitResume}>
+            <Typography
+              variant="h1"
+              align="left"
+              font="gilroy"
+              color="white"
+              fontWeight="bold"
+              customClassName="mb-4"
+            >
+              Tell us about yourself
+            </Typography>
+            <Input
+              placeholder="Please input your current job role"
               value={currentJob}
               onChange={handleInputChange}
-              placeholder="Current Job Role"
-              className="block w-full p-2 rounded mb-2"
-            />
-            <input
               type="text"
-              name="targetRole"
-              id=""
+              name="currentRole"
+            />
+            <Input
+              placeholder="Please input your target job role"
               value={targetJob}
               onChange={handleInputChange}
-              placeholder="Target Job Role"
-              className="block w-full p-2 rounded mb-2"
+              type="text"
+              name="targetRole"
             />
-            <input
-              type="file"
-              name="resume"
-              id=""
-              onChange={handleFileChange}
-              accept=".pdf"
-              className="block"
-            />
-            <div className="flex justify-center items-center">
-              <button
-                type="submit"
-                className="w-3/5 text-white bg-blue-600 my-8 p-2 rounded-sm hover:bg-blue-500"
+            <label
+              htmlFor="resume"
+              className="block cursor-pointer w-full h-auto"
+            >
+              <span
+                className={`w-auto h-12 flex justify-center items-center  bg-secondary-5 text-white hover:bg-secondary-3 ${gilroy.className}`}
               >
-                Submit
-              </button>
+                {selectedFile ? (
+                  `${selectedFile?.name}`
+                ) : (
+                  <span className="flex gap-2">
+                    <ArrowUpFromBracketOI /> Upload your resume{" "}
+                  </span>
+                )}
+              </span>
+              <input
+                type="file"
+                name="resume"
+                id="resume"
+                onChange={handleFileChange}
+                accept=".pdf"
+                className="hidden"
+              />
+            </label>
+
+            <div className="flex justify-center items-center">
+              <Button
+                variant="default"
+                label="Submit"
+                customClassname="mt-4 w-[8rem]"
+              />
             </div>
           </form>
         </div>
       ) : (
         <div>
-          <button
-            className="bg-red-600 text-white font-bold p-2 rounded-sm mb-12"
-            onClick={() => setSubmitted(false)}
-          >
-            Go Back
-          </button>
+          <Button
+            variant="error"
+            label = "Go Back"
+            onClick = {() => setSubmitted(false)}
+          />
           <p>{response}</p>
         </div>
       )}
