@@ -63,16 +63,8 @@ const Login = ({ isLoading, login}: LoginProps) => {
   };
 
   return (
-    <div className="w-3/6 flex flex-col justify-center items-center mbl:w-full">
+    <div className="w-1/2 flex flex-col justify-center items-center mbl:w-full">
       <ToastContainer />
-      <Typography
-        variant='h1'
-        fontWeight='bold'
-        align='center'
-        customClassName=''
-      >
-        Sign in to Career Coach
-      </Typography>
       <form onSubmit={handleSubmit} className='mt-8 w-[80%] mbl:w-full'>
         <Input
           label='Email Address'
