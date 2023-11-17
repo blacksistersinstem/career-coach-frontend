@@ -13,7 +13,7 @@ const Success = () => {
   };
 
   return (
-    <div className="w-3/6 flex justify-center items-center mbl:w-full tab:w-[80%]">
+    <div className="w-full flex justify-center items-center mbl:w-full tab:w-[80%]">
       {!intro ? (
         <Introduction introFxn={setFxn} />
       ) : (

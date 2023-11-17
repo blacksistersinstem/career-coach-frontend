@@ -19,7 +19,7 @@ export default function Home() {
           variant="h1"
           fontWeight="bold"
           align="center"
-          customClassName=""
+          customClassName="mb-4"
         >
           Black Sis in STEM&apos;s Career Coach
         </Typography>
