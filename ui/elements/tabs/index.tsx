@@ -17,7 +17,7 @@ const Tabs = ({ tabs }: { tabs: Tab[] }) => {
 
   return (
     <section>
-      <div className="flex w-full items-center justify-center gap-2">
+      <div className="flex w-full items-center justify-center gap-2 transition ease-in-out delay-150 duration-500">
         {tabs.map((tab, index) => (
           <button
             key={index}
