@@ -19,7 +19,7 @@ export const useLogin = () => {
   // const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
   const { contextLogin } = useAuthContext();
 
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
@@ -39,8 +39,8 @@ export const useLogin = () => {
         }
       );
 
-      if (response.status === 200) {
-        setIsSuccess(true);
+      if (response.status === 200 ) {
+        setLoginSuccess(true);
         toast.success("Form was successfully submitted", {
           position: "top-right",
           autoClose: 5000,
@@ -51,11 +51,12 @@ export const useLogin = () => {
           progress: undefined,
           theme: "light",
         });
-        contextLogin(response.data.data.userId, response.data.data.token);
+        contextLogin(response?.data.data.userId, response?.data.data.token);
+        
+        
       }
     } catch (error: any) {
-      // console.log(error?.response.data.err);
-      setIsSuccess(false);
+      setLoginSuccess(false);
       toast.error(`This ${error?.response.data.err}. Please try again.`, {
         position: "top-right",
         autoClose: 5000,
@@ -66,11 +67,10 @@ export const useLogin = () => {
         progress: undefined,
         theme: "light",
       });
-      
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { isSuccess, isLoading, login };
+  return { loginSuccess, isLoading, login };
 };

@@ -3,16 +3,18 @@
 import React, { FormEvent, useState } from "react";
 
 import { Button, Input, } from "@/ui";
-import {useSignUp} from "@/hooks/useSignUp";
 import { Spinner } from "flowbite-react";
 
-const SignUp = () => {
+interface SignUpProps {
+  signUpLoading: boolean;
+  signUp: (email:string, password: string) => void;
+}
+
+const SignUp = ({signUpLoading, signUp}:SignUpProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passCheck, setPassCheck] = useState(false);
-
-  const { isSuccess, isLoading, signUp } = useSignUp();
 
   const handleConfirmPasswordChange = (value: string) => {
     setConfirmPassword(value);
@@ -58,7 +60,7 @@ const SignUp = () => {
         <Button
           variant={!passCheck ? "disabled" : "default"}
           type="submit"
-          label={isLoading ? <Spinner size="md"/> : "Sign Up" }
+          label={signUpLoading ? <Spinner size="md"/> : "Sign Up" }
           customClassname="w-full"
         />
       </form>

@@ -31,7 +31,6 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
     e: any,
     name: string
   ) => {
-    // console.log(e)
     if (name === "currentRole") {
       setCurrentJob(e);
     } else if (name === "targetRole") {
@@ -81,7 +80,6 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
       }
       setResponse(response.data.chat.response);
     } catch (error) {
-      console.log("Error:", error);
       setIsLoading(false)
       toast.error("An error occurred. Please try again.", {
         position: "top-right",
@@ -146,8 +144,7 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
       setSubmitted(true);
       submit();
     }
-    console.log(currentJob)
-    console.log(targetJob)
+    
   };
 
   return (
@@ -217,14 +214,15 @@ const CVSubmission = ({ outroFxn }: OutroProps) => {
           </form>
         </div>
       ) : (
-        <div>
+        <div className="w-full flex flex-col">
           <Button
             variant="error"
             label="Go Back"
             onClick={() => setSubmitted(false)}
+            customClassname="w-auto justify-self-start"
           />
-          <div className="mt-4">
-            {isLoading ? <Spinner size="md"/> : <div className={`text-white ${gilroy.className}`}>{response}</div>}  
+          <div className="mt-4 justify-self-center self-center">
+            {isLoading ? <Spinner size="xl"/> : <div className={`text-white ${gilroy.className}`}>{response}</div>}  
           </div>
         </div>
       )}

@@ -4,8 +4,7 @@ import React, { FormEvent, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "flowbite-react";
-
-import { Button, Input, Typography } from "@/ui";
+import { Button, Input } from "@/ui";
 
 interface LoginProps {
   isLoading: boolean;
@@ -22,13 +21,14 @@ const Login = ({ isLoading, login }: LoginProps) => {
     if (validate()) {
       setPreLoading(true);
       login(email, password); // Call the login function from the hook
+      // setPreLoading(false)
     }
-    // setPreLoading(false)
+    
   };
 
   const validate = () => {
     let result = true;
-    if (email === "" || null) {
+    if (email === "") {
       setPreLoading(false);
       result = false;
       toast.error("Please, enter a proper email address", {
@@ -41,7 +41,7 @@ const Login = ({ isLoading, login }: LoginProps) => {
         progress: undefined,
         theme: "light",
       });
-    } else if (password === "" || null) {
+    } else if (password === "") {
       setPreLoading(false);
       result = false;
       toast.error("Please, enter a proper password", {

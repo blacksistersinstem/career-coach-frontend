@@ -7,9 +7,11 @@ import Logo from "@/public/assets/logo.svg";
 import { Tabs, Typography } from "@/ui";
 
 import { useLogin } from "@/hooks/useLogin";
+import { useSignUp } from "@/hooks/useSignUp";
 
 export default function Home() {
-  const { isSuccess, isLoading, login } = useLogin();
+  const { loginSuccess, isLoading, login } = useLogin();
+  const {signUpSuccess, signUpLoading, signUp} = useSignUp()
 
   return (
     <main className="min-h-screen p-24 mbl:p-8">
@@ -25,7 +27,7 @@ export default function Home() {
         </Typography>
       </div>
 
-      {isSuccess ? (
+      {loginSuccess || signUpSuccess ? (
         <Success />
       ) : (
         <Tabs
@@ -34,7 +36,7 @@ export default function Home() {
               title: "Sign In",
               children: <section className="flex justify-center items-center mt-4"><Login isLoading={isLoading} login={login} /></section>,
             },
-            { title: "Sign Up", children: <section className="flex justify-center items-center mt-4"><SignUp/></section> },
+            { title: "Sign Up", children: <section className="flex justify-center items-center mt-4"><SignUp signUpLoading = {signUpLoading} signUp={signUp}/></section> },
           ]}
         />
       )}
