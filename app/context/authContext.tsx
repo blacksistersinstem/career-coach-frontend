@@ -7,6 +7,7 @@ interface AuthContextProps{
     token: string | null;
     contextLogin: (userId: string, token: string) => void;
     logout: () => void;
+    contextSignUp: (userId:string, token: string) => void;
 }
 
 
@@ -26,9 +27,13 @@ export const AuthContextProvider = ({children}: {children: ReactNode}) => {
         setToken(null);
     };
     
+    const contextSignUp = (userId:string, token: string) => {
+        setUserId(userId)
+        setToken(token)
+    }
 
     return(
-        <AuthContext.Provider value = {{userId, token, contextLogin, logout}}>
+        <AuthContext.Provider value = {{userId, token, contextLogin, logout, contextSignUp}}>
             {children}
         </AuthContext.Provider>
     )

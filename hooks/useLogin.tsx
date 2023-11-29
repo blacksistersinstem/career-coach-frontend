@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useAuthContext } from "../context/authContext";
+import { useAuthContext } from "../app/context/authContext";
 
-interface DataObj{
+interface DataObj {
   userId: string;
   token: string;
 }
@@ -12,21 +12,18 @@ interface LoginResponse {
   status: number;
   userId: string;
   token: string;
-  data: DataObj
+  data: DataObj;
 }
 
 export const useLogin = () => {
+  // const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
+  const { contextLogin } = useAuthContext();
 
-  const apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
-  const {contextLogin} = useAuthContext();
-
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
     try {
-      console.log(".....Response.....");
-      setIsLoading(true);
 
       const response = await axios.post<LoginResponse>(
         `https://career-coach-ai.onrender.com/api/v1/user/sign-in`,
@@ -41,11 +38,9 @@ export const useLogin = () => {
           },
         }
       );
-      
-      console.log("Response.....", response);
 
-      if (response.status === 200) {
-        setIsSuccess(true);
+      if (response.status === 200 ) {
+        setLoginSuccess(true);
         toast.success("Form was successfully submitted", {
           position: "top-right",
           autoClose: 5000,
@@ -56,13 +51,13 @@ export const useLogin = () => {
           progress: undefined,
           theme: "light",
         });
-        // console.log(response.data.data.userId)
-        contextLogin(response.data.data.userId, response.data.data.token)
+        contextLogin(response?.data.data.userId, response?.data.data.token);
+        
+        
       }
     } catch (error: any) {
-      console.log(error?.message);
-      setIsSuccess(false);
-      toast.error("An error occurred. Please try again.", {
+      setLoginSuccess(false);
+      toast.error(`This ${error?.response.data.err}. Please try again.`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -72,10 +67,10 @@ export const useLogin = () => {
         progress: undefined,
         theme: "light",
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return { isSuccess, isLoading, login };
+  return { loginSuccess, isLoading, login };
 };
