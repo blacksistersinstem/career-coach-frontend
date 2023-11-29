@@ -33,7 +33,7 @@ const Introduction = ({ introFxn }: IntroProps) => {
         onClick = {introFxn}
         variant="default"
         label = {<div className="flex gap-2">Let&apos;s Get Started <ArrowRightOI/></div>}
-      />
+       />
     </div>
   );
 };
